@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imovel</title>
+    <link rel="stylesheet" href="css/cliente.css">
+    <script>
+        let imovel = []; 
+        
+        let stringImovel = JSON.stringify(imovel);
+        localStorage.setItem("vetorImovel",stringImovel);
+
+//------------------------------------------------------------------------------------------------------------------------------------
+        function IncluirImovel(){
+            let objcodigo = document.getElementById("Codigo");
+            let objdescricao = document.getElementById("descricao");
+            let objrua = document.getElementById("rua");
+            let objnumero = document.getElementById("numero");
+            let objbairro = document.getElementById("bairro");
+            let objcidade = document.getElementById("cidade");
+            let objestado = document.getElementById("estado");
+            let objpais = document.getElementById("pais");
+            let objcep = document.getElementById("cep");
+            let objtipo = document.getElementById("tipo");
+            let objgaragem = document.getElementById("garagem");
+            let objsuites = document.getElementById("suites");
+            let objquartos = document.getElementById("quartos");
+            let objseguranca = document.getElementById("seguranca");
+            let objvalorimovel = document.getElementById("valorimovel");
+            let objvalorcondominio = document.getElementById("valorcondominio");
+            
+            let ListaImovel = {
+                codigo:objcodigo.value,
+                descricao:objdescricao.value,
+                rua:objrua.value,
+                numero:objnumero.value,
+                bairro:objbairro.value,
+                cidade:objcidade.value,
+                estado:objestado.value,
+                pais:objpais.value,
+                cep:objcep.value,
+                tipo:objtipo.value,
+                garagem:objgaragem.value,
+                suites:objsuites.value,
+                quartos:objquartos.value,
+                seguranca:objseguranca.value,
+                valorimovel:objvalorimovel.value,
+                valorcondominio:objvalorcondominio.value
+
+            }
+
+            let flag=0;
+            for(let i=0; i<imovel.length; i++){
+                if (imovel[i].codigo == ListaImovel.codigo){
+                    flag = 1;
+                }
+            }
+            if (flag==1){
+                alert("O cadastro deste imovel não foi possível, pois as informações já foram cadastradas anteriormente");
+            }
+            
+            else{
+                imovel.push(ListaImovel);
+                alert("Cadastrado efetuado com sucesso");
+            }
+
+            console.log(imovel);
+        }
+
+//------------------------------------------------------------------------------------------------------------------------------------
+        function funcaoalterar(){
+
+            let flag = -1;
+            objcodigo = document.getElementById("codigo").value;
+            for(let i=0; i<imovel.length; i++){
+                if (imovel[i].codigo == objcodigo){
+                    imovel[i].descricao = document.getElementById("descricao").value;
+                    imovel[i].rua = document.getElementById("rua").value;
+                    imovel[i].numero = document.getElementById("numero").value;
+                    imovel[i].bairro = document.getElementById("bairro").value;
+                    imovel[i].cidade = document.getElementById("cidade").value;
+                    imovel[i].estado = document.getElementById("estado").value;
+                    imovel[i].pais = document.getElementById("pais").value;
+                    imovel[i].cep = document.getElementById("cep").value;
+                    imovel[i].tipo = document.getElementById("tipo").value;
+                    imovel[i].suites = document.getElementById("suites").value;
+                    imovel[i].quartos = document.getElementById("quartos").value;
+                    imovel[i].seguranca = document.getElementById("seguranca").value;
+                    imovel[i].valorimovel = document.getElementById("valorimovel").value;
+                    imovel[i].valorcondominio = document.getElementById("valorcondominio").value;
+
+                    flag = 1;
+                }
+            }
+            if(flag != -1){
+                alert("imovel alterado com sucesso")
+            }
+
+            console.log(imovel)
+
+            }
+
+        function chamarDados(){
+
+            let flag=-1;
+            objcodigo = document.getElementById("codigo").value;
+            for(let i=0; i<imovel.length; i++){
+                if (imovel[i].codigo == objcodigo){
+                    flag = i;
+                    
+                }
+            }
+            if (flag != -1){
+                document.getElementById("codigo").value = imovel[flag].codigo;
+                document.getElementById("descricao").value = imovel[flag].descricao;
+                document.getElementById("rua").value = imovel[flag].rua;
+                document.getElementById("numero").value = imovel[flag].numero;
+                document.getElementById("bairro").value = imovel[flag].bairro;
+                document.getElementById("cidade").value = imovel[flag].cidade;
+                document.getElementById("pais").value = imovel[flag].pais;
+                document.getElementById("cep").value = imovel[flag].cep;
+                document.getElementById("tipo").value = imovel[flag].tipo;
+                document.getElementById("garagem").value = imovel[flag].garagem;
+                document.getElementById("suites").value = imovel[flag].suites;
+                document.getElementById("quartos").value = imovel[flag].quartos;
+                document.getElementById("seguranca").value = imovel[flag].seguranca;
+                document.getElementById("valorimovel").value = imovel[flag].valorimovel;
+                document.getElementById("valorcondominio").value = imovel[flag].valorcondominio;
+
+                document.getElementById("salvaralteracao").innerHTML = "<button onclick='funcaoalterar()'>"+ "Salvar Alteração" + "</button>";
+            }
+            else{
+                
+                alert("imovel não encontrado, favor colocar outro codigo para alteração");
+            }
+
+}
+//------------------------------------------------------------------------------------------------------------------------------------
+
+        function Excluir(){
+            let flag=-1;
+            objcodigo = document.getElementById("codigo").value;
+            for(let i=0; i<imovel.length; i++){
+                if (imovel[i].codigo == objcodigo){
+                    flag = i;
+                    
+                }
+            }
+            if (flag != -1){
+                imovel.splice(flag,1);
+                alert ("Imovel removido com sucesso");
+            }
+            else{
+                alert("Imovel não removido, pois não foi encontrado");
+            }
+            console.log(imovel);
+        }
+
+//------------------------------------------------------------------------------------------------------------------------------------
+        
+        function ListarUm(){
+            let flag=-1;
+            objcodigo = document.getElementById("codigo").value;
+            for(let i=0; i<imovel.length; i++){
+                if (imovel[i].codigo == objcodigo){
+                    flag = i;
+
+                }
+            }
+            if (flag != -1){
+                alert("CODIGO:" + imovel[flag].codigo + 
+                "\nDESCRIÇÃO:" + imovel[flag].descricao + 
+                "\nRUA:" + imovel[flag].rua + 
+                "\nNUMERO:" + imovel[flag].numero + 
+                "\nBAIRRO:" + imovel[flag].bairro + 
+                "\nCIDADE:" + imovel[flag].cidade + 
+                "\nESTADO:" + imovel[flag].estado +
+                "\nPAIS:" + imovel[flag].pais +
+                "\nCEP:" + imovel[flag].cep +
+                "\nTIPO:" + imovel[flag].tipo +
+                "\nGARAGEM:" + imovel[flag].garagem +
+                "\nSUITES:" + imovel[flag].suites +
+                "\nQUARTOS:" + imovel[flag].quartos +
+                "\nSEGURANÇA:" + imovel[flag].seguranca +
+                "\nVALOR DO IMOVEL:" + imovel[flag].valorimovel +
+                "\nVALOR DO CONDOMINIO:" + imovel[flag].valorcondominio);
+            }
+            else{
+                alert("Imovel não encontrado");
+            }
+        }
+
+//------------------------------------------------------------------------------------------------------------------------------------
+        function ListarTudo(){
+                    str = "";
+                    for(let i=0; i<imovel.length; i++){
+                        str += "\nIMOVEL - "+ [i+1] +
+                        "\nCODIGO:" + imovel[i].codigo + 
+                        "\nDESCRIÇÃO:" + imovel[i].descricao + 
+                        "\nRUA:" + imovel[i].rua + 
+                        "\nNUMERO:" + imovel[i].numero + 
+                        "\nBAIRRO:" + imovel[i].bairro + 
+                        "\nCIDADE:" + imovel[i].cidade + 
+                        "\nESTADO:" + imovel[i].estado +
+                        "\nPAIS:" + imovel[i].pais +
+                        "\nCEP:" + imovel[i].cep +
+                        "\nTIPO:" + imovel[i].tipo +
+                        "\nGARAGEM:" + imovel[i].garagem +
+                        "\nSUITES:" + imovel[i].suites +
+                        "\nQUARTOS:" + imovel[i].quartos +
+                        "\nSEGURANÇA:" + imovel[i].seguranca +
+                        "\nVALOR DO IMOVEL:" + imovel[i].valorimovel + 
+                        "\nVALOR DO CONDOMINIO:" + imovel[i].valorcondominio + "\n";
+                    }
+                    
+                    if (str == ""){
+                        alert("Nenhum imovel encontrado");
+                    }
+                    else{
+                        alert(str);
+                    }
+                }
+//------------------------------------------------------------------------------------------------------------------------------------
+        
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Imobiliaria União</h1>
+        <h2>Imovel</h2>
+    </header>
+    <article>
+        <form class="principal">
+            <label for="codigo">codigo: </label>  
+            <input type="number" name="" id="codigo" placeholder="1234567"><br>
+
+            <label for="descricao">Descrição: </label>
+            <input type="text" name="" id="descricao"><br><br>
+
+            <label for="rua">Rua: </label>
+            <input type="text" name="" id="rua"><br><br>
+
+            <label for="numero">Número: </label>
+            <input type="number" name="" id="numero"><br><br>
+
+            <label for="bairro">Bairro: </label>
+            <input type="text" name="" id="bairro"><br><br>
+
+            <label for="cidade">Cidade: </label>
+            <input type="text" name="" id="cidade"><br><br>
+
+            <label for="estado">Estado: </label>
+            <input type="text" name="" id="estado"><br><br>
+
+            <label for="pais">Pais: </label>
+            <input type="text" name="" id="pais"><br><br>
+
+            <label for="cep">CEP: </label>
+            <input type="number" name="" id="cep"><br><br>
+
+            <label for="tipo">Tipo: </label>
+            <select id="tipo">
+                <option hidden="true"></option>
+                <option value="Residencial">Residencial</option>
+                <option value="Comercial">Comercial</option>
+            </select><br><br>
+            
+
+            <label for="garagem">Garagem: </label>
+            <select id="garagem">
+                <option hidden="true"></option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select><br><br>
+
+            <label for="suites">Suites: </label>
+            <select id="suites">
+                <option hidden="true"></option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select><br><br>
+            
+            <label for="quartos">Quartos: </label>
+            <select id="quartos">
+                <option hidden="true"></option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select><br><br>
+
+            <label for="seguranca">Segurança: </label>
+            <select id="seguranca">
+                <option hidden="true"></option>
+                <option value="Portaria">Portaria</option>
+                <option value="GuardaNoturno">Guarda Noturno</option>
+                <option value="PortariaEGuarda">Portaria e Guarda Noturno</option>
+                <option value="zero">Sem item de segurança</option>
+            </select><br><br>
+
+
+            <label for="valorimovel">Valor do imovel: </label>
+            <input type="number" id="valorimovel"><br><br>
+
+            <label for="valorcondominio">Valor do condominio: </label>
+            <input type="number" id="valorcondominio"><br><br>
+
+
+        </form>
+
+        <div id="salvaralteracao" class="principal">
+
+        </div>
+
+        <div id="botoes" class="principal">
+            <button onclick="IncluirImovel()">Incluir</button>
+            <button onclick="chamarDados()">Alterar</button>
+            <button onclick="Excluir()">Excluir</button>
+            <button onclick="ListarUm()">Listar Um</button>
+            <button onclick="ListarTudo()">Listar Todos</button>
+        </div>
+        
+    </article>
+    
+    
+</body>
+</html>
