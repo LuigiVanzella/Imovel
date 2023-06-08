@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="css/cliente.css">
     <script>
         let imovel = []; 
-        
+
         let stringImovel = JSON.stringify(imovel);
         localStorage.setItem("vetorImovel",stringImovel);
-
+        
 //------------------------------------------------------------------------------------------------------------------------------------
         function IncluirImovel(){
-            let objcodigo = document.getElementById("Codigo");
+            let objcodigo = document.getElementById("codigo");
             let objdescricao = document.getElementById("descricao");
             let objrua = document.getElementById("rua");
             let objnumero = document.getElementById("numero");
@@ -65,6 +65,8 @@
                 imovel.push(ListaImovel);
                 alert("Cadastrado efetuado com sucesso");
             }
+            let stringImovel = JSON.stringify(imovel);
+            localStorage.setItem("vetorImovel",stringImovel);
 
             console.log(imovel);
         }
@@ -136,6 +138,9 @@
                 alert("imovel não encontrado, favor colocar outro codigo para alteração");
             }
 
+            let stringImovel = JSON.stringify(imovel);
+            localStorage.setItem("vetorImovel",stringImovel);   
+
 }
 //------------------------------------------------------------------------------------------------------------------------------------
 
@@ -155,6 +160,10 @@
             else{
                 alert("Imovel não removido, pois não foi encontrado");
             }
+
+            let stringImovel = JSON.stringify(imovel);
+            localStorage.setItem("vetorImovel",stringImovel);
+            
             console.log(imovel);
         }
 
@@ -222,6 +231,8 @@
                         alert(str);
                     }
                 }
+
+
 //------------------------------------------------------------------------------------------------------------------------------------
         
     </script>
